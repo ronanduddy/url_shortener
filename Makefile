@@ -1,4 +1,4 @@
-.PHONY: run stop guard shell bundle build
+.PHONY: run stop guard shell shell_and_db bundle build
 
 run: build
 	@docker-compose up
@@ -12,6 +12,9 @@ guard: build
 
 shell: build
 	@docker-compose run --rm dev sh
+
+shell_and_db: build
+	@docker-compose run --rm web sh
 
 bundle: stop build
 	@docker-compose run --rm dev bundle

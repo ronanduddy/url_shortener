@@ -8,12 +8,12 @@ stop:
 	@docker-compose down
 
 reset_db:
-	@docker-compose run --rm web bundle exec rails db:drop db:create db:migrate db:seed
+	@docker-compose run --rm web bash -c "bundle exec rails db:drop db:create db:migrate db:seed"
 
-guard: build
-	@docker-compose run --rm test bundle exec guard -c
+guard:
+	@docker-compose run --rm test bash -c "bundle exec rails db:drop db:create db:migrate RAILS_ENV=test; bundle exec guard -c"
 
-shell: build
+shell:
 	@docker-compose run --rm dev sh
 
 shell_and_db: build

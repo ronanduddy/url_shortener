@@ -1,7 +1,7 @@
 .PHONY: run stop guard shell shell_and_db bundle build
 
 run: build
-	@docker-compose up
+	@docker-compose up web
 
 stop:
 	sudo chown -R ${USER}:${USER} . # TODO: fix

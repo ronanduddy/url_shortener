@@ -1,4 +1,4 @@
-.PHONY: run stop seed guard shell shell_and_db bundle build
+.PHONY: run stop reset_db guard shell shell_and_db bundle build
 
 run: stop build
 	@docker-compose up web
@@ -7,8 +7,8 @@ stop:
 	sudo chown -R ${USER}:${USER} . # TODO: fix
 	@docker-compose down
 
-seed:
-	@docker-compose run --rm web bundle exec rails db:seed
+reset_db:
+	@docker-compose run --rm web bundle exec rails db:drop db:create db:migrate db:seed
 
 guard: build
 	@docker-compose run --rm test bundle exec guard -c

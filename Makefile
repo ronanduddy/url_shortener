@@ -4,7 +4,6 @@ run: build
 	@docker-compose up web
 
 stop:
-	sudo chown -R ${USER}:${USER} . # TODO: fix
 	@docker-compose down
 
 guard: build

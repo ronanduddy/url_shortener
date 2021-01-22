@@ -1,4 +1,4 @@
-.PHONY: run stop shell
+.PHONY: run stop shell build
 
 run:
 	@docker-compose up
@@ -8,3 +8,6 @@ stop:
 
 shell:
 	@docker-compose run --rm web sh
+
+build:
+	@docker-compose build

@@ -11,6 +11,7 @@
   </head>
 
   <body>
+    <p><%= link_to 'Sign out', destroy_user_session_path, method: :delete if user_signed_in? %></p>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 

@@ -39,6 +39,9 @@ group :development, :test do
   gem 'guard', '~> 2.16', '>= 2.16.2'
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
 
+  # test data
+  gem 'factory_bot_rails', '~> 6.1'
+
   gem 'rexml', '~> 3.2', '>= 3.2.4'
 end
 

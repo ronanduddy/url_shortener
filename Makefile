@@ -1,13 +1,19 @@
-.PHONY: run stop shell build
+.PHONY: run stop guard shell build
 
-run:
+APP=dev
+RUN=@docker-compose run --rm ${APP}
+
+run: build
 	@docker-compose up
 
 stop:
 	@docker-compose down
 
-shell:
-	@docker-compose run --rm web sh
+guard: build
+	${RUN} bundle exec guard -c
+
+shell: build
+	${RUN} sh
 
 build:
 	@docker-compose build

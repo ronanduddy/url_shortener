@@ -1,10 +1,9 @@
-.PHONY: run stop reset_db guard shell shell_and_db bundle build
+.PHONY: run stop reset_db guard shell shell_and_db bundle build chown
 
-run: stop build
+run: build
 	@docker-compose up web
 
 stop:
-	sudo chown -R ${USER}:${USER} . # TODO: fix
 	@docker-compose down
 
 reset_db:
@@ -24,3 +23,6 @@ bundle: stop build
 
 build:
 	@docker-compose build
+
+chown:
+	sudo chown -R ${USER}:${USER} . # TODO: fix

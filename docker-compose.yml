@@ -19,3 +19,9 @@ services:
     build: .
     volumes:
       - .:/url_shortener
+  test:
+    build: .
+    volumes:
+      - .:/url_shortener
+    depends_on:
+      - db

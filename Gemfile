@@ -38,6 +38,8 @@ group :development, :test do
   # guard for automated testing
   gem 'guard', '~> 2.16', '>= 2.16.2'
   gem 'guard-rspec', '~> 4.7', '>= 4.7.3'
+
+  gem 'rexml', '~> 3.2', '>= 3.2.4'
 end
 
 group :development do

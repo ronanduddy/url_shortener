@@ -35,9 +35,9 @@ RSpec.describe ShortUrl, type: :model do
   end
 
   context 'with slug attribute' do
-    it 'is invalid when nil' do
+    it 'generates a slug when nil' do
       short_url.slug = nil
-      expect(short_url).to be_invalid
+      expect(short_url).to be_valid
     end
 
     it 'is invalid when length < 8' do

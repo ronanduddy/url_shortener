@@ -60,4 +60,36 @@ RSpec.describe ShortUrl, type: :model do
 
     pending "is unique slug #{__FILE__}"
   end
+
+  context 'with views attribute' do
+    it 'has a default value of 0' do
+      expect(short_url.views).to eq 0
+    end
+
+    it 'must be >= 0' do
+      expect(short_url).to be_valid
+      short_url.views = 1
+      expect(short_url).to be_valid
+    end
+
+    it 'cannot be < 0' do
+      short_url.views = -1
+      expect(short_url).to be_invalid
+    end
+
+    it 'cannot be set to nil' do
+      short_url.views = nil
+      expect(short_url).to be_invalid
+    end
+
+    it 'increments by 1 if touched' do
+      short_url.save
+
+      short_url.touch
+      expect(short_url.views).to eq 1
+
+      short_url.touch
+      expect(short_url.views).to eq 2
+    end
+  end
 end

@@ -2,15 +2,15 @@ Your URLs
 
 <div>
 <%# TODO: extract error messaging %>
-<% if @short_url.errors.present? %>
+<% if @facade.errors? %>
   Unable to create short URL because of the following:
-  <% @short_url.errors.each do |error| %>
+  <% @facade.errors.each do |error| %>
     <p><%= error.full_message %></p>
   <% end %>
 <% end %>
 
 <%# TODO: prettify short url form %>
-<%= form_with(model: @short_url) do |f| %>
+<%= form_with(model: @facade.build) do |f| %>
   <%= f.label :url %>
   <%= f.url_field :url %>
   <%= f.submit 'Create short URL' %>
@@ -19,7 +19,7 @@ Your URLs
 
 <%# TODO: prettify short url list %>
 <div>
-<% @short_urls.each do |short_url| %>
+<% @facade.list.each do |short_url| %>
   <p><%= "#{short_url.slug} -> #{short_url.url} #{short_url.views}" %></p>
 <% end %>
 </div>

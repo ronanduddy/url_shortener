@@ -64,10 +64,13 @@ RSpec.configure do |config|
 
   # devise integration helpers
   config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 
   # clean db config
   config.use_transactional_fixtures = false
 
+  # TODO: extract clean db config into support file
   config.before(:suite) do
     if config.use_transactional_fixtures?
       raise(<<-MSG)

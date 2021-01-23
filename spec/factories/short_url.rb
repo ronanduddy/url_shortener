@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :short_url do
-    url { 'http://www.example.com' }
-    slug { '12345678' }
+    sequence(:url) { |n| "http://www.example#{n}.com" } 
+    slug { SecureRandom.uuid[0..7] }
     views { 0 }
 
     user

@@ -32,6 +32,9 @@ RSpec.describe ShortUrl, type: :model do
       short_url.url = 'http://www.example.com/'
       expect(short_url).to be_valid
     end
+
+    pending "is valid URL #{__FILE__}"
+    pending "is unique URL #{__FILE__}"
   end
 
   context 'with slug attribute' do
@@ -54,5 +57,7 @@ RSpec.describe ShortUrl, type: :model do
       short_url.slug = 'abcdefgh'
       expect(short_url).to be_valid
     end
+
+    pending "is unique slug #{__FILE__}"
   end
 end

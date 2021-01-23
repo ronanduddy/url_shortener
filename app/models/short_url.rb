@@ -7,15 +7,14 @@ class ShortUrl < ApplicationRecord
   validates :views, numericality: { greater_than_or_equal_to: 0 }
 
   before_validation :generate_slug
-  after_touch :increment_views
+
+  def increment_views
+    self.increment!(:views, touch: :updated_at)
+  end
 
   private
 
   def generate_slug
     self.slug = SecureRandom.uuid[0..7] if self.slug.blank?
-  end
-
-  def increment_views
-    self.views += 1
   end
 end

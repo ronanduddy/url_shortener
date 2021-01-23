@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ShortUrl, type: :model do
   let(:short_url) { FactoryBot.build(:short_url) }
 
-  context 'with no user association' do
+  context 'with no User association' do
     before { short_url.user = nil }
 
     it 'is invalid' do
@@ -63,7 +63,7 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url.save).to be true
 
       new_short_url = FactoryBot.build(:short_url, slug: short_url.slug)
-      expect(new_short_url).to be_invalid      
+      expect(new_short_url).to be_invalid
     end
   end
 
@@ -87,14 +87,14 @@ RSpec.describe ShortUrl, type: :model do
       short_url.views = nil
       expect(short_url).to be_invalid
     end
+  end
 
-    it 'increments by 1 if touched' do
-      short_url.save
-
-      short_url.touch
+  describe '#increment_views' do
+    it 'increments `views` by 1' do
+      short_url.increment_views
       expect(short_url.views).to eq 1
 
-      short_url.touch
+      short_url.increment_views
       expect(short_url.views).to eq 2
     end
   end

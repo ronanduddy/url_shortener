@@ -4,7 +4,7 @@ class ShortUrl < ApplicationRecord
   validates :url, :slug, presence: true
   validates :url, length: { in: 16..64 }, uniqueness: true
   validate  :valid_url
-  validates :slug, length: { is: 8 }, uniqueness: true
+  validates :slug, length: { is: 7 }, uniqueness: true
   validates :views, numericality: { greater_than_or_equal_to: 0 }
 
   before_validation :generate_slug
@@ -16,7 +16,7 @@ class ShortUrl < ApplicationRecord
   private
 
   def generate_slug
-    self.slug = SecureRandom.uuid[0..7] if self.slug.blank?
+    self.slug = SecureRandom.urlsafe_base64[0..6] if self.slug.blank?
   end
 
   # TODO: extract into own validator

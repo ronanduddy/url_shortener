@@ -45,23 +45,23 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url).to be_valid
     end
 
-    it 'is invalid when length < 8' do
+    it 'is invalid when length < 7' do
       short_url.slug = '5'
       expect(short_url).to be_invalid
     end
 
-    it 'is invalid when length > 8' do
+    it 'is invalid when length > 7' do
       short_url.slug = '4564r454654654'
       expect(short_url).to be_invalid
     end
 
-    it 'is valid when length is 8' do
-      short_url.slug = 'abcdefgh'
+    it 'is valid when length is 7' do
+      short_url.slug = 'abcdefg'
       expect(short_url).to be_valid
     end
 
     it 'must be unique' do
-      short_url.slug = '12345678'
+      short_url.slug = '1234567'
       expect(short_url.save).to be true
 
       new_short_url = FactoryBot.build(:short_url, slug: short_url.slug)

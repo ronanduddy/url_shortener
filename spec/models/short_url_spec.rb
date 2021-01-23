@@ -58,7 +58,13 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url).to be_valid
     end
 
-    pending "is unique slug #{__FILE__}"
+    it 'must be unique' do
+      short_url.slug = '12345678'
+      expect(short_url.save).to be true
+
+      new_short_url = FactoryBot.build(:short_url, slug: short_url.slug)
+      expect(new_short_url).to be_invalid      
+    end
   end
 
   context 'with views attribute' do

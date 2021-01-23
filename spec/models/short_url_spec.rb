@@ -19,12 +19,12 @@ RSpec.describe ShortUrl, type: :model do
     end
 
     it 'is invalid when length < 16' do
-      short_url.url = 'S]Ken&xyL2Fwc]#'
+      short_url.url = 'http://www.a.cm'
       expect(short_url).to be_invalid
     end
 
     it 'is invalid when length > 64' do
-      short_url.url = '6spEhN5U9BmYNLKVvFS8EwDWxsUBNlNSUTHVInoBFwaDp8Gzc9tnTh5FHurB3wZdS'
+      short_url.url = 'http://www.exampleexampleexampleexampleexampleexampleexample.com/'
       expect(short_url).to be_invalid
     end
 
@@ -33,8 +33,10 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url).to be_valid
     end
 
-    pending "is valid URL #{__FILE__}"
-    pending "is unique URL #{__FILE__}"
+    it 'is invalid for an incorrect URL' do
+      short_url.url = 'not a URL'
+      expect(short_url).to be_invalid
+    end
   end
 
   context 'with slug attribute' do

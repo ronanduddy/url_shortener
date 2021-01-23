@@ -2,7 +2,8 @@ class ShortUrl < ApplicationRecord
   belongs_to :user
 
   validates :url, :slug, presence: true
-  validates :url, length: { in: 16..64 }
+  validates :url, length: { in: 16..64 }, uniqueness: true
+  validate  :valid_url
   validates :slug, length: { is: 8 }, uniqueness: true
   validates :views, numericality: { greater_than_or_equal_to: 0 }
 
@@ -16,5 +17,14 @@ class ShortUrl < ApplicationRecord
 
   def generate_slug
     self.slug = SecureRandom.uuid[0..7] if self.slug.blank?
+  end
+
+  # TODO: extract into own validator
+  def valid_url
+    url = URI.parse(self.url) rescue false
+
+    unless url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
+      errors.add(:url, 'must be valid')
+    end
   end
 end

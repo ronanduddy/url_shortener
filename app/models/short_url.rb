@@ -2,7 +2,7 @@ class ShortUrl < ApplicationRecord
   belongs_to :user
 
   validates :url, :slug, presence: true
-  validates :url, length: { in: 16..64 }, uniqueness: true
+  validates :url, length: { in: 16..64 }
   validate  :valid_url
   validates :slug, length: { is: 7 }, uniqueness: true
   validates :views, numericality: { greater_than_or_equal_to: 0 }

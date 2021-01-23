@@ -1,12 +1,13 @@
-Your URLs
-
+<h1>URL Shortener!</h1>
 <div>
 <%# TODO: extract error messaging %>
 <% if @facade.errors? %>
-  Unable to create short URL because of the following:
+  <p>Unable to create short URL because of the following:</p>
+  <ul>
   <% @facade.errors.each do |error| %>
-    <p><%= error.full_message %></p>
+    <li><%= error.full_message %></li>
   <% end %>
+  </ul>
 <% end %>
 
 <%# TODO: prettify short url form %>
@@ -16,10 +17,25 @@ Your URLs
   <%= f.submit 'Create short URL' %>
 <% end %>
 </div>
-
+<br>
 <%# TODO: prettify short url list %>
-<div>
-<% @facade.list.each do |short_url| %>
-  <p><%= "#{short_url.slug} -> #{short_url.url} #{short_url.views}" %></p>
-<% end %>
-</div>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Slug</th>
+    <th>URL</th>
+    <th>Views</th>
+    <th>Short URL</th>
+    <th>Created at</th>
+  </tr>
+  <% @facade.list.each do |short_url| %>
+  <tr id="<%= short_url.id %>">
+    <td><%= short_url.id %></td>
+    <td><%= short_url.slug %></td>
+    <td><%= short_url.url %></td>
+    <td><%= short_url.views %></td>
+    <td><%= vanity_link short_url %></td>
+    <td><%= short_url.created_at %></td>
+  </tr>
+  <% end %>
+</table>

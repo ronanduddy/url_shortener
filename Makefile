@@ -1,28 +1,32 @@
-.PHONY: run stop reset_db guard shell shell_and_db bundle build chown
+.PHONY: run stop reset_db test guard shell bundle build setup
 
-run: build
+run:
 	@docker-compose up web
 
 stop:
 	@docker-compose down
 
 reset_db:
-	@docker-compose run --rm web bash -c "bundle exec rails db:drop db:create db:migrate db:seed"
+	@docker-compose up -d test
+	@docker-compose run --rm web bash -c "rails db:reset"
+
+test:
+	@docker-compose run --rm test bash -c "rails RAILS_ENV=test db:reset; rspec"
 
 guard:
-	@docker-compose run --rm test bash -c "bundle exec rails db:drop db:create db:migrate RAILS_ENV=test; bundle exec guard -c"
+	@docker-compose run --rm test bash -c "rails RAILS_ENV=test db:reset; guard -c"
 
 shell:
-	@docker-compose run --rm dev sh
-
-shell_and_db: build
 	@docker-compose run --rm web sh
 
-bundle: stop build
-	@docker-compose run --rm dev bundle
+bundle:
+	@docker-compose run --rm web bundle
 
 build:
 	@docker-compose build
 
-chown:
-	sudo chown -R ${USER}:${USER} . # TODO: fix
+setup: build
+	@docker-compose up -d web
+	@docker-compose up -d test
+	@docker-compose run --rm web bash -c "rails log:clear tmp:clear db:reset"
+	@docker-compose up web

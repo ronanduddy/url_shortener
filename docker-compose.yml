@@ -3,13 +3,13 @@ services:
   db:
     image: postgres
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
   test_db:
     image: postgres
     volumes:
-      - ./tmp/db:/var/lib/postgresql/test_data
+      - test-pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
   web:
@@ -21,13 +21,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
-  dev:
-    build: .
-    volumes:
-      - .:/url_shortener
   test:
     build: .
     volumes:
       - .:/url_shortener
     depends_on:
       - test_db
+volumes:
+  pg-data:
+  test-pg-data:

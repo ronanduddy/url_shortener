@@ -10,7 +10,7 @@ module Facades
     end
 
     def list
-      @list ||= @current_user.short_urls
+      @list ||= @current_user&.short_urls
     end
 
     def errors?

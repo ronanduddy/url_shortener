@@ -9,8 +9,8 @@ module Facades
       ShortUrl.new
     end
 
-    def list
-      @list ||= @current_user&.short_urls
+    def list      
+      @list ||= @current_user&.short_urls || []
     end
 
     def errors?

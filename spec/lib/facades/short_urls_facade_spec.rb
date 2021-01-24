@@ -10,9 +10,17 @@ RSpec.describe Facades::ShortUrlsFacade do
   end
 
   describe '#list' do
-    before { allow(user).to receive(:short_urls).and_return([1, 2, 3]) }
+    context 'when `short_urls` is present' do
+      before { allow(user).to receive(:short_urls).and_return([1, 2, 3]) }
 
-    it { expect(facade.list).to eq [1, 2, 3] }
+      it { expect(facade.list).to eq [1, 2, 3] }
+    end
+
+    context 'when `short_urls` is nil' do
+      before { allow(user).to receive(:short_urls).and_return(nil) }
+
+      it { expect(facade.list).to eq [] }
+    end
   end
 
   describe '#errors?' do

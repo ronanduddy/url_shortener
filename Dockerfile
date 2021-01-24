@@ -5,9 +5,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 RUN apt-get update -qq && apt-get install -y nodejs yarn postgresql-client
 
 WORKDIR /url_shortener
-COPY Gemfile /url_shortener/Gemfile
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 RUN bundle install
-COPY . /url_shortener
+COPY . .
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/

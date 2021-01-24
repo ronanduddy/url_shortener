@@ -1,12 +1,14 @@
 # URL Shortener
 
-This is a toy Ruby on Rails app that can take user registration (signup and login) and shorten URLS.
+This is a toy Ruby on Rails app that allows user registration (signup and login) and provides the creation of shorten URLs (otherwise known as vanity links).
 
-For example, [http://www.example.com](http://www.example.com) can be input and the following will be returned for the user (or the public) [http://0.0.0.0:3000/1234567](http://0.0.0.0:3000/1234567).
+For example, [http://www.example.com](http://www.example.com) can be input and the following will be returned for the user [http://0.0.0.0:3000/1234567](http://0.0.0.0:3000/1234567). The short URL can now be consumed by the public for marketing purposes etc.
 
-Every time the short URL (i.e. http://0.0.0.0:3000/1234567](http://0.0.0.0:3000/1234567)) is used, it will record how many times it has been used and then redirect to the original URL which is [http://www.example.com](http://www.example.com).
+Every time the short URL (i.e. http://0.0.0.0:3000/1234567) is used, a record will be kept on many times it has been used/clicked/viewed.
 
-## Features
+Note that no attempt has been made to make the UI look pretty. 
+
+## Requirements
 
 A Rails application that allows a user to get a short version of a URL from a long version, for example see [bit.ly](bit.ly).
 
@@ -17,10 +19,7 @@ This must be a functioning rails application considering the following:
 * URLs must belong to a registered user
 * Count and display to the user how many times the URL has been used
 
-A use case diagram has been created to make sense of the above requirements.
-![Use Case Diagram](use_case.PNG)
-
-Finally from the use case diagram the following user stories have been created in order to arrive at a good place to start:
+Finally from the [use case diagram](use_case.PNG) the following user stories have been created in order to arrive at a good place to start:
 1. As a user I want to be able to register my self to the system so that I can create short URLs
 2. As a user I want to be able to create short URLs so that I can share user-friendly links with people
 3. As a user I want to be able to see how many times the short URL I created has been used or viewed
@@ -37,7 +36,7 @@ make setup
 
 A completely fresh or clean setup takes ~5mins.
 
-Afterwards you should be able to go to [http://0.0.0.0:3000/](http://0.0.0.0:3000/) to use the app. You can register a user or use a [seeded user](db/seeds.rb).
+Afterwards you should be able to go to http://0.0.0.0:3000/ to use the app. You can register a user or use a [seeded user](db/seeds.rb). The location to create short URLs is http://0.0.0.0:3000/short_urls. 
 
 ## Usage
 

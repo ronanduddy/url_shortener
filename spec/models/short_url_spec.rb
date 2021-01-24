@@ -16,7 +16,7 @@ RSpec.describe ShortUrl, type: :model do
     before { FactoryBot.create_list(:short_url, 5) }
 
     it 'returns in descending order' do
-      id = 5
+      id = ShortUrl.first.id    
       ShortUrl.all.each do |short_url|
         expect(short_url.id).to eq id
         id -= 1

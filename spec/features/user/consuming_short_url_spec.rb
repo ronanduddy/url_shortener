@@ -7,13 +7,14 @@ RSpec.describe 'Consuming a short url', type: :feature do
       :short_url,
       user: user,
       slug: '1234567',
-      url: 'http://www.testing.com'
+      url: 'http://www.google.com'
     )
   end
 
   scenario 'when not logged in' do
     visit vanity_path(short_url.slug)
-    expect(page.current_url).to include 'http://www.testing.com'
+    expect(page.current_url).to include 'http://www.google.com'
+    expect(page.text).to_not eq 'Welcome to the URL shortener app. Please Sign in or Register.'
   end
 
   scenario 'when short url does not exist' do
@@ -26,13 +27,13 @@ RSpec.describe 'Consuming a short url', type: :feature do
 
     visit vanity_path(short_url.slug)
     visit vanity_path(short_url.slug)
-    expect(page.current_url).to include 'http://www.testing.com'
+    expect(page.current_url).to include 'http://www.google.com'
 
     short_url.reload
 
     visit short_urls_path
     row = page.find("tr##{short_url.id}")
-    expect(row).to have_content('1234567 http://www.testing.com 2 http://www.example.com/1234567')
+    expect(row).to have_content('1234567 http://www.google.com 2 http://www.example.com/1234567')
   end
 
   # TODO: pull these out from feature specs; duplication

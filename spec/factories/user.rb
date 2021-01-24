@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    email { "#{rand(5..30)}@example.com" }
+    email { "#{SecureRandom.uuid}@example.com" }
     password { 'password123' }
 
     factory :user_with_short_urls do

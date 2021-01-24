@@ -80,4 +80,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/ronand
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT Licence - see the [LICENCE.md](LICENCE.md) file for details

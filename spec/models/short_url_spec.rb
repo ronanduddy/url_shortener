@@ -12,6 +12,18 @@ RSpec.describe ShortUrl, type: :model do
     end
   end
 
+  context 'with default ordering' do
+    before { FactoryBot.create_list(:short_url, 5) }
+
+    it 'returns in descending order' do
+      id = 5
+      ShortUrl.all.each do |short_url|
+        expect(short_url.id).to eq id
+        id -= 1
+      end
+    end
+  end
+
   context 'with URL attribute' do
     it 'is invalid when nil' do
       short_url.url = nil
@@ -23,12 +35,16 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url).to be_invalid
     end
 
-    it 'is invalid when length > 64' do
-      short_url.url = 'http://www.exampleexampleexampleexampleexampleexampleexample.com/'
+    it 'is invalid when length > 128' do
+      short_url.url = 'http://www.exampleexampleexampleexampleexampleexample' \
+                      'exampleexampleexampleexampleexampleexampleexample' \
+                      'exampleexampleexampleexampleexample' \
+                      'exampleexampleexample.com/'
+
       expect(short_url).to be_invalid
     end
 
-    it 'is valid when length >= 16 and <= 64' do
+    it 'is valid when length >= 16 and <= 128' do
       short_url.url = 'http://www.example.com/'
       expect(short_url).to be_valid
     end

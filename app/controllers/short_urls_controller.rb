@@ -1,52 +1,45 @@
-require 'facades/short_urls_facade'
-
 class ShortUrlsController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :build_short_url, only: :create
-  before_action :find_short_url, only: :show
-  before_action :set_facade, only: [:index, :create, :show]
+  before_action :set_form, except: :create
+  before_action :set_facade
 
-  def index
+  def index    
   end
 
   def create
-    if @short_url.save
+    @short_url_form = ShortUrlForm.new(short_url_params).as(current_user)
+    if @short_url_form.save
       flash.now[:notice] = 'Succesfully created the short URL'
-      render :index
+      render :index, status: :created
     else
-      @short_urls = current_user.short_urls
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
   def show
-    if @short_url
-      @short_url.increment_views
-      redirect_to @short_url.url
+    short_url = ShortUrl.find_by(slug: vanity_param)
+
+    if short_url
+      short_url.increment_views
+      redirect_to short_url.url
     else
-      # TODO: could respond with 404?
       flash.now[:notice] = 'Invalid short URL'
-      render :index
+      render :index, status: :not_found
     end
   end
 
   private
 
-  def find_short_url
-    @short_url = ShortUrl.find_by(slug: vanity_param)
-  end
-
-  def build_short_url
-    @short_url = ShortUrl.new(short_url_params)
-    @short_url.user = current_user
+  def set_form
+    @short_url_form = ShortUrlForm.new
   end
 
   def set_facade
-    @facade = Facades::ShortUrlsFacade.new(current_user, @short_url)
+    @short_urls_facade = ShortUrlsFacade.new(current_user)
   end
 
   def short_url_params
-    params.require(:short_url).permit(:url)
+    params.require(:short_url_form).permit(:url)
   end
 
   def vanity_param

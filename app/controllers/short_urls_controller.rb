@@ -1,9 +1,9 @@
 class ShortUrlsController < ApplicationController
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!, except: :show_url
   before_action :set_form, except: :create
   before_action :set_facade
 
-  def index    
+  def index
   end
 
   def create
@@ -17,10 +17,15 @@ class ShortUrlsController < ApplicationController
   end
 
   def show
+    @url_accesses = current_user.short_urls.find(params[:id]).url_accesses
+  end
+
+  def show_url
     short_url = ShortUrl.find_by(slug: vanity_param)
 
     if short_url
       short_url.increment_views
+      short_url.url_accesses.create
       redirect_to short_url.url
     else
       flash.now[:notice] = 'Invalid short URL'

@@ -14,8 +14,6 @@ RSpec.describe 'Consuming a short url', type: :feature do
   scenario 'when not logged in' do
     visit vanity_path(short_url.slug)
     expect(page.current_url).to include 'http://www.google.com'
-    # TODO: investigate why page text has not updated
-    # expect(page.text).to_not eq 'Welcome to the URL shortener app. Please Sign in or Register.'
   end
 
   scenario 'when short url does not exist' do
@@ -35,6 +33,7 @@ RSpec.describe 'Consuming a short url', type: :feature do
     visit short_urls_path
     row = page.find("tr##{short_url.id}")
     expect(row).to have_content('1234567 http://www.google.com 2 http://www.example.com/1234567')
+    expect(short_url.url_accesses.count).to eq 2
   end
 
   # TODO: pull these out from feature specs; duplication

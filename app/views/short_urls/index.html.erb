@@ -28,7 +28,7 @@
   <% @short_urls_facade.list.each do |short_url| %>
   <tr id="<%= short_url.id %>">
     <td><%= short_url.id %></td>
-    <td><%= short_url.slug %></td>
+    <td><%= link_to short_url.slug, short_url_path(short_url) %></td>
     <td><%= short_url.url %></td>
     <td><%= short_url.views %></td>
     <td><%= vanity_link short_url %></td>

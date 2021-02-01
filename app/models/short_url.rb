@@ -1,6 +1,7 @@
 class ShortUrl < ApplicationRecord
   # TODO: add index to slug
   belongs_to :user
+  has_many :url_accesses
 
   validates :url, presence: true, length: { in: 16..128 }, url: true
   validates :slug, presence: true, length: { is: 7 }, uniqueness: true
